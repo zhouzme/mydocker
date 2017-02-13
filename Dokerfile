@@ -1,0 +1,12 @@
+FROM daocloud.io/library/centos:latest
+FROM daocloud.io/php:7.1.1
+MAINTAINER Snail <523612913@qq.com>
+RUN yum update && yum install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng12-dev \
+    && docker-php-ext-install iconv mcrypt \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install gd
+CMD ["php-fpm"]
